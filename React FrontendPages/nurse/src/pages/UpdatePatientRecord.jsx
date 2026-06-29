@@ -26,7 +26,10 @@ const PatientDetails = () => {
 
     try {
       const response = await fetch(`http://localhost:8084/nurse/getPatient?id=${patientId}`);
-      if (!response.ok) throw new Error("Patient not found.");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || "Patient not found.");
+      }
       
       const data = await response.json();
       
@@ -68,11 +71,13 @@ const PatientDetails = () => {
       });
 
       if (response.ok) {
-        alert("Patient record updated successfully!");
+        setError("Patient record updated successfully!");
       } else {
-        alert("Failed to update patient record.");
+        const errorData = await response.json().catch(() => null);
+        setError(errorData?.message || "Failed to update patient record.");
       }
     } catch (error) {
+      setError("Failed to update patient record. Please try again.");
       console.error("Error updating patient record:", error);
     }
   };

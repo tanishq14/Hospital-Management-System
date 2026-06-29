@@ -5,11 +5,18 @@ const AssignBed = () => {
   const [message, setMessage] = useState("");
   const [availableBeds, setAvailableBeds] = useState(0);
 
-  useEffect(() => {
+  const fetchAvailableBeds = () => {
     fetch("http://localhost:8084/nurse/availableBeds")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch available beds");
+        return response.json();
+      })
       .then((data) => setAvailableBeds(data))
       .catch((error) => console.error("Error fetching bed count:", error));
+  };
+
+  useEffect(() => {
+    fetchAvailableBeds();
   }, []);
 
   const handleAssignBed = async () => {
@@ -23,11 +30,15 @@ const AssignBed = () => {
         method: "POST",
       });
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        setMessage(errorData?.message || "Failed to assign bed.");
+        return;
+      }
+
       const data = await response.text();
       setMessage(data);
-      fetch("http://localhost:8084/nurse/availableBeds")
-        .then((response) => response.json())
-        .then((data) => setAvailableBeds(data));
+      fetchAvailableBeds();
 
     } catch (error) {
       setMessage("Failed to assign bed.");

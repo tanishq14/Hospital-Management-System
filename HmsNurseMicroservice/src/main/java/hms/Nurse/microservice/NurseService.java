@@ -21,12 +21,6 @@ public class NurseService {
     }
     
     public String assignBedToPatient(Long patientId) {
-        
-        if (!nurseRepository.doesPatientExist(patientId)) {
-            return "Error: Patient ID " + patientId + " does not exist!";
-        }
-
-        
         Optional<Long> availableBed = nurseRepository.findAvailableBed();
         if (availableBed.isPresent()) {
             nurseRepository.assignBed(availableBed.get(), patientId);

@@ -42,12 +42,6 @@ public class NurseRepository {
             patient.getHeight(), patient.getWeight(), patient.getMedicines(), patient.getId());
     }
     
-    public boolean doesPatientExist(Long patientId) {
-        String sql = "SELECT COUNT(*) FROM patients WHERE id = ?";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, patientId);
-        return count != null && count > 0;
-    }
-    
     public Optional<Long> findAvailableBed() {
         String sql = "SELECT bed_id FROM bed_management_db.beds WHERE status = 'available' LIMIT 1";
         return secondaryJdbcTemplate.query(sql, rs -> {

@@ -29,22 +29,19 @@ const RegisterDoctor = () => {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to register doctor");
+            const errorData = await response.json().catch(() => null);
+            throw new Error(errorData?.message || "Error registering doctor. Please try again.");
         }
 
-        // Set success message
         setMessage(`Doctor registered successfully!`);
-
-        // Clear input fields
         setDoctor({ name: "", specialization: "", password: "", email: "", yoe:"" });
 
-        // Wait 1 second, then navigate to login page
         setTimeout(() => {
             navigate("/");
         }, 1000);
 
         } catch (error) {
-        setMessage("Error registering doctor. Please try again.");
+        setMessage(error.message || "Error registering doctor. Please try again.");
         console.error(error);
         }
     };

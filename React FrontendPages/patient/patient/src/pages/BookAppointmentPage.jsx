@@ -14,7 +14,7 @@ const BookAppointmentPage = () => {
   const handleBookAppointment = async (doctorId,doctorName) => {
     try {
       const response = await fetch(
-        `http://localhost:8083/patients/bookAppointment?name=${patientNamecd}&doctorId=${doctorId}&doctorName=${doctorName}`,
+        `http://localhost:8083/patients/bookAppointment?name=${patientName}&doctorId=${doctorId}&doctorName=${doctorName}`,
         { method: "POST" }
       );
 

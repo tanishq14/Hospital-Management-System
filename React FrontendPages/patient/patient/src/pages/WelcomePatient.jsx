@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 const WelcomePatient = () => {
   const navigate = useNavigate();
   const patientName = localStorage.getItem("patientName");
+  const patientId = localStorage.getItem("patientId");
 
   return (
     <div style={styles.container}>
       <h2 style={styles.header}>Welcome, {patientName}</h2>
+      <p style={styles.idBadge}>Your Patient ID: <strong>{patientId}</strong></p>
+      <p style={styles.idHint}>Share this ID with the nurse for bed assignment or record updates.</p>
       <div style={styles.buttonContainer}>
         <button style={styles.button} onClick={() => navigate("/book-appointment")}>
           Book Appointment
@@ -35,6 +38,19 @@ const styles = {
   header: {
     fontSize: "22px",
     fontWeight: "bold",
+    marginBottom: "8px",
+  },
+  idBadge: {
+    fontSize: "16px",
+    backgroundColor: "#e8f4fd",
+    border: "1px solid #b8daff",
+    borderRadius: "4px",
+    padding: "8px 12px",
+    marginBottom: "4px",
+  },
+  idHint: {
+    fontSize: "12px",
+    color: "#666",
     marginBottom: "20px",
   },
   buttonContainer: {

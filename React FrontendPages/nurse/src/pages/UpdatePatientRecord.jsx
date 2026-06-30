@@ -103,32 +103,49 @@ const PatientDetails = () => {
 
       <div style={styles.form}>
         <label><strong>ID:</strong> {patientId || "N/A"}</label>
+
+        <label style={styles.fieldLabel}>Name</label>
         <input type="text" placeholder="Name" value={patientData.name} readOnly style={styles.input} />
+
+        <label style={styles.fieldLabel}>Email</label>
         <input type="text" placeholder="Email" value={patientData.email} readOnly style={styles.input} />
+
+        <label style={styles.fieldLabel}>Blood Pressure</label>
         <input type="text" placeholder="Blood Pressure" value={patientData.bloodPressure}
           onChange={(e) => setPatientData({ ...patientData, bloodPressure: e.target.value })}
           style={styles.input}
         />
+
+        <label style={styles.fieldLabel}>Body Temperature</label>
         <input type="text" placeholder="Body Temperature" value={patientData.bodyTemperature}
           onChange={(e) => setPatientData({ ...patientData, bodyTemperature: e.target.value })}
           style={styles.input}
         />
+
+        <label style={styles.fieldLabel}>Heart Rate</label>
         <input type="text" placeholder="Heart Rate" value={patientData.heartRate}
           onChange={(e) => setPatientData({ ...patientData, heartRate: e.target.value })}
           style={styles.input}
         />
-        <input type="text" placeholder="Height" value={patientData.height}
+
+        <label style={styles.fieldLabel}>Height (cm)</label>
+        <input type="text" placeholder="Height (cm)" value={patientData.height}
           onChange={(e) => setPatientData({ ...patientData, height: e.target.value })}
           style={styles.input}
         />
-        <input type="text" placeholder="Weight" value={patientData.weight}
+
+        <label style={styles.fieldLabel}>Weight (kg)</label>
+        <input type="text" placeholder="Weight (kg)" value={patientData.weight}
           onChange={(e) => setPatientData({ ...patientData, weight: e.target.value })}
           style={styles.input}
         />
+
+        <label style={styles.fieldLabel}>Medicines</label>
         <input type="text" placeholder="Medicines" value={patientData.medicines}
           onChange={(e) => setPatientData({ ...patientData, medicines: e.target.value })}
           style={styles.input}
         />
+
         <button onClick={handleUpdate} style={styles.updateButton}>Update Details</button>
       </div>
     </div>
@@ -153,6 +170,13 @@ const styles = {
     margin: "10px auto",
     padding: "10px",
     fontSize: "16px",
+  },
+  fieldLabel: {
+    display: "block",
+    marginTop: "10px",
+    fontSize: "13px",
+    fontWeight: "bold",
+    color: "#333",
   },
   button: {
     padding: "12px",

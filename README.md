@@ -31,6 +31,11 @@ Eureka Server (Service Discovery)
 - Registers all microservices and enables inter-service communication.
 - Runs on port `8761`.
 
+Service Discovery Dashboard
+- The Eureka Server runs on port `8761`.
+- Once all microservices are started, visit `http://localhost:8761` to view the Eureka dashboard.
+- You should see all 4 services registered and `UP`: `HMSDOCTORMICROSERVICE`, `HMSPATIENTMICROSERVICE`, `HMSAPPOINTMENTMICROSERVICE`, and `HMSNURSEMICROSERVICE`.
+
 Installation & Setup
  1. Clone the Repository
 ```sh
@@ -64,6 +69,7 @@ Navigate to the Eureka server directory:
 cd hmsEurekaServer
 mvn spring-boot:run
 ```
+Once started, the Eureka dashboard is available at `http://localhost:8761`, where all registered microservices can be viewed.
 
  5. Start Microservices
 For each microservice, run:

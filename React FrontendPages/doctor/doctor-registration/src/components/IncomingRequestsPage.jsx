@@ -101,7 +101,6 @@ const IncomingRequestsPage = () => {
                       </button>
                     </>
                   )}
-                  {appt.status !== "pending" && <span>{appt.status}</span>}
                 </td>
               </tr>
             ))

@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 
 const BookAppointmentPage = () => {
   const [doctors, setDoctors] = useState([]);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" or "error"
   const patientName = localStorage.getItem("patientName"); // Retrieve logged-in patient ID
 
-  useEffect(() => {
+  const fetchDoctors = () => {
     fetch("http://localhost:8083/patients/availableDoctors") //
       .then((response) => response.json())
       .then((data) => setDoctors(data))
       .catch((error) => console.error("Error fetching doctors:", error));
+  };
+
+  useEffect(() => {
+    fetchDoctors();
   }, []);
 
   const handleBookAppointment = async (doctorId,doctorName) => {
@@ -22,9 +28,12 @@ const BookAppointmentPage = () => {
         throw new Error("Failed to book appointment");
       }
 
-      alert("Appointment booked successfully!");
-      window.location.reload(); // Refresh the page after booking
+      setMessage("Appointment booked successfully!");
+      setMessageType("success");
+      fetchDoctors(); // Refresh the doctor list after booking
     } catch (error) {
+      setMessage("Failed to book appointment. Please try again.");
+      setMessageType("error");
       console.error(error);
     }
   };
@@ -32,6 +41,11 @@ const BookAppointmentPage = () => {
   return (
     <div style={styles.container}>
       <h2>Book Appointment</h2>
+      {message && (
+        <p style={messageType === "success" ? styles.successMessage : styles.errorMessage}>
+          {message}
+        </p>
+      )}
       <table style={styles.table}>
         <thead>
           <tr>
@@ -96,6 +110,16 @@ const styles = {
   disabledText: {
     color: "gray",
     fontWeight: "bold",
+  },
+  successMessage: {
+    color: "green",
+    fontSize: "14px",
+    marginTop: "10px",
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: "14px",
+    marginTop: "10px",
   },
 };
 
